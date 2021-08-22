@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="5dp" app:cardElevation="3dp" app:cardUseCompatPadding="true">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
+                <TextView android:textSize="20sp" android:textStyle="bold" android:id="@+id/userNameTV" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name"/>
+            </LinearLayout>
+            <ImageButton android:id="@+id/moreOptBtn" android:background="@drawable/ic_more_opt" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView android:textSize="20sp" android:autoLink="all" android:id="@+id/postTextTV" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tekst oglasa"/>
+        <ImageView android:id="@+id/postImageIV" android:background="@color/white" android:layout_width="match_parent" android:layout_height="200dp"/>
+        <RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <Button android:textSize="10sp" android:id="@+id/commentBtn" android:background="@drawable/button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Komentari" android:drawableLeft="@drawable/ic_comment" android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/content" android:layout_width="fill_parent" android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+            <ImageView
+                android:layout_width="250.0dip"
+                android:layout_height="250.0dip"
+                android:layout_marginBottom="80.0dip"
+                android:src="@drawable/logo1"
+                android:layout_centerHorizontal="true"/>
+            <Button
+                android:id="@+id/register_btn"
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Registruj se"
+                android:layout_above="@id/login_btn" />
+            <Button
+                android:id="@+id/login_btn"
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginBottom="30.0dip"
+                android:text="Prijavi se"
+                android:layout_alignParentBottom="true" />
+            <TextView
+                android:id="@+id/noLogin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20.0dip"
+                android:text="Pregledaj bez prijavljivanja"
+                android:layout_above="@id/register_btn"
+                android:textAlignment="center" />
+    </LinearLayout>
+</RelativeLayout>
