@@ -30,29 +30,29 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
-        this.nameIn = (EditText) findViewById(R.id.name);
-        this.emailIn = (EditText) findViewById(R.id.email);
-        this.passwordIn = (EditText) findViewById(R.id.password);
-        this.registerBtn = (Button) findViewById(R.id.register_btn2);
-        this.login2 = (TextView) findViewById(R.id.login2);
-        this.mAuth = FirebaseAuth.getInstance();
-        this.registerBtn.setOnClickListener(new View.OnClickListener() {
+        nameIn = findViewById(R.id.name);
+        emailIn = findViewById(R.id.email);
+        passwordIn = findViewById(R.id.password);
+        registerBtn = findViewById(R.id.register_btn2);
+        login2 =  findViewById(R.id.login2);
+        mAuth = FirebaseAuth.getInstance();
+        registerBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                String name = RegisterActivity.this.nameIn.getText().toString().trim();
-                String email = RegisterActivity.this.emailIn.getText().toString().trim();
-                String password = RegisterActivity.this.passwordIn.getText().toString().trim();
+                String name = nameIn.getText().toString().trim();
+                String email = emailIn.getText().toString().trim();
+                String password = passwordIn.getText().toString().trim();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    RegisterActivity.this.emailIn.setError("Neispravan Email");
-                    RegisterActivity.this.emailIn.setFocusable(true);
+                    emailIn.setError("Neispravan Email");
+                    emailIn.setFocusable(true);
                 } else if (password.length() < 6) {
-                    RegisterActivity.this.passwordIn.setError("Lozinka mora imati minimum 6 karaktera");
-                    RegisterActivity.this.passwordIn.setFocusable(true);
+                    passwordIn.setError("Lozinka mora imati minimum 6 karaktera");
+                    passwordIn.setFocusable(true);
                 } else if (name.trim().length() < 1) {
                     RegisterActivity.this.nameIn.setError("Morate uneti ime!");
-                    RegisterActivity.this.nameIn.setFocusable(true);
+                    nameIn.setFocusable(true);
                 } else {
-                    RegisterActivity.this.registerUser(name, email, password);
+                    registerUser(name, email, password);
                 }
             }
         });
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String name, String email, String password) {
-        this.mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(Task<AuthResult> task) {
@@ -80,9 +80,8 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("phone", "");
                     FirebaseDatabase.getInstance().getReference("Users").child(uid).setValue(hashMap);
                     Toast.makeText(RegisterActivity.this, "Registrovan", Toast.LENGTH_SHORT).show();
-                    //RegisterActivity.this.startActivity(new Intent(RegisterActivity.this, HomeProfileActivity.class));
-                    RegisterActivity.this.finish();
-                    return;
+                    startActivity(new Intent(RegisterActivity.this, HomeProfileActivity.class));
+
                 }
                 Toast.makeText(RegisterActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
             }

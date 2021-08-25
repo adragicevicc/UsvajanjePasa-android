@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">UsvajanjePasa</string>
 
-    <string name="default_web_client_id">166265582931-932sgjtc53v2oaupkl1gbhh85pu5c09v.apps.googleusercontent.com</string>
+<!--    <string name="default_web_client_id">166265582931-932sgjtc53v2oaupkl1gbhh85pu5c09v.apps.googleusercontent.com</string>-->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    <string name="default_web_client_id" translatable="false">166265582931-932sgjtc53v2oaupkl1gbhh85pu5c09v.apps.googleusercontent.com</string>-->
 </resources>

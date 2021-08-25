@@ -31,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
         this.loginBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //MainActivity.this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                MainActivity.this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
         this.noLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //HomeFragment f = new HomeFragment();
+                HomeFragment f = new HomeFragment();
                 FragmentTransaction ft = MainActivity.this.getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content, f, "");
+                ft.replace(R.id.content, f, "");
                 ft.commit();
             }
         });

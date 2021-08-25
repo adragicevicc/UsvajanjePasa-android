@@ -16,17 +16,17 @@ public class HomeProfileActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     private NavigationBarView.OnItemSelectedListener selectedListener = new NavigationBarView.OnItemSelectedListener() {
 
-        @Override // com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+        @Override
         public boolean onNavigationItemSelected(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.menu_home /*{ENCODED_INT: 2131230978}*/:
+                case R.id.menu_home:
                     HomeProfileActivity.this.actionBar.setTitle("Početna");
                     HomeFragment f1 = new HomeFragment();
                     FragmentTransaction ft1 = HomeProfileActivity.this.getSupportFragmentManager().beginTransaction();
                     ft1.replace(R.id.content, f1, "");
                     ft1.commit();
                     return true;
-                case R.id.menu_profile /*{ENCODED_INT: 2131230979}*/:
+                case R.id.menu_profile:
                     HomeProfileActivity.this.actionBar.setTitle("Nalog");
                     ProfileFragment f2 = new ProfileFragment();
                     FragmentTransaction ft2 = HomeProfileActivity.this.getSupportFragmentManager().beginTransaction();
@@ -39,16 +39,18 @@ public class HomeProfileActivity extends AppCompatActivity {
         }
     };
 
-    /* access modifiers changed from: protected */
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, androidx.fragment.app.FragmentActivity
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_profile);
+
         this.mAuth = FirebaseAuth.getInstance();
         ((BottomNavigationView) findViewById(R.id.nav)).setOnItemSelectedListener(this.selectedListener);
+
         ActionBar supportActionBar = getSupportActionBar();
         this.actionBar = supportActionBar;
         supportActionBar.hide();
+
         HomeFragment f1 = new HomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, f1, "");
@@ -58,12 +60,11 @@ public class HomeProfileActivity extends AppCompatActivity {
     private void checkUser() {
         if (this.mAuth.getCurrentUser() == null) {
             startActivity(new Intent(this, MainActivity.class));
-            finish();
+            //finish();
         }
     }
 
-    /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity
+    @Override
     public void onStart() {
         checkUser();
         super.onStart();

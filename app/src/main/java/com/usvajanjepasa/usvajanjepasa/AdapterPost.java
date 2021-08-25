@@ -81,16 +81,17 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             holder.usersName.setText(usersName);
         }
         if (pImage.equals("noImage")) {
-            holder.postImage.setVisibility(View.VISIBLE);
-        } else {
             holder.postImage.setVisibility(View.GONE);
+        } else {
+            holder.postImage.setVisibility(View.VISIBLE);
             try {
+                Toast.makeText(AdapterPost.this.context, "UCITAVA SLIKU", Toast.LENGTH_SHORT).show();
                 Picasso.get().load(pImage).into(holder.postImage);
             } catch (Exception e) {
             }
         }
-        if (this.user != null) {
-            if (this.currUid.equals(uid) || this.user.getEmail().equals("testusvajanje@gmail.com")) {
+        if (user != null) {
+            if (currUid.equals(uid) || user.getEmail().equals("testusvajanje@gmail.com")) {
                 holder.moreOptBtn.setVisibility(View.VISIBLE);
             } else {
                 holder.moreOptBtn.setVisibility(View.GONE);
@@ -141,7 +142,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
                 }
             }).addOnFailureListener(new OnFailureListener() {
 
-                @Override // com.google.android.gms.tasks.OnFailureListener
+                @Override
                 public void onFailure(Exception e) {
                     Toast.makeText(AdapterPost.this.context, "Dogodila se greska. Pokusajte ponovo", Toast.LENGTH_SHORT).show();
                 }
@@ -149,13 +150,10 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void deleteData(String postID) {
         FirebaseDatabase.getInstance().getReference("Posts").orderByChild("postID").equalTo(postID).addListenerForSingleValueEvent(new ValueEventListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AdapterPost.AnonymousClass6 */
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     dataSnapshot.getRef().removeValue();
@@ -163,7 +161,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
                 Toast.makeText(AdapterPost.this.context, "Oglas je uspesno izbrisan", Toast.LENGTH_SHORT).show();
             }
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onCancelled(DatabaseError error) {
             }
         });
@@ -186,18 +184,19 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
         public MyHolder(View itemView) {
             super(itemView);
-            this.postImage = (ImageView) itemView.findViewById(R.id.postImageIV);
-            this.usersName = (TextView) itemView.findViewById(R.id.userNameTV);
-            this.postText = (TextView) itemView.findViewById(R.id.postTextTV);
-            this.moreOptBtn = (ImageButton) itemView.findViewById(R.id.moreOptBtn);
-            this.commentBtn = (Button) itemView.findViewById(R.id.commentBtn);
-            this.profileLayout = (LinearLayout) itemView.findViewById(R.id.profileLinLay);
+            postImage = itemView.findViewById(R.id.postImageIV);
+            usersName = itemView.findViewById(R.id.userNameTV);
+            postText = itemView.findViewById(R.id.postTextTV);
+            moreOptBtn = itemView.findViewById(R.id.moreOptBtn);
+            commentBtn = itemView.findViewById(R.id.commentBtn);
+            profileLayout = itemView.findViewById(R.id.profileLinLay);
+
             checkUser();
         }
 
         private void checkUser() {
-            if (this.mAuth.getCurrentUser() == null) {
-                this.moreOptBtn.setVisibility(View.GONE);
+            if (mAuth.getCurrentUser() == null) {
+                moreOptBtn.setVisibility(View.GONE);
             }
         }
     }

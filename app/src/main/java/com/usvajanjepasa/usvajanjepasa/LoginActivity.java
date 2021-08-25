@@ -92,13 +92,12 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser(String email, String password) {
         this.mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-            @Override // com.google.android.gms.tasks.OnCompleteListener
+            @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    LoginActivity.this.mAuth.getCurrentUser();
-                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, HomeProfileActivity.class));
-                    LoginActivity.this.finish();
-                    return;
+                    mAuth.getCurrentUser();
+                    startActivity(new Intent(LoginActivity.this, HomeProfileActivity.class));
+
                 }
                 Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
             }
@@ -133,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();

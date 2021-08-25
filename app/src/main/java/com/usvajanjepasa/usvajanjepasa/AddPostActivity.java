@@ -43,7 +43,6 @@ public class AddPostActivity extends AppCompatActivity {
     String email;
     ActivityResultLauncher<String> getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
 
-
         public void onActivityResult(Uri result) {
             if (result != null) {
                 AddPostActivity.this.imgUri = result;
@@ -52,7 +51,6 @@ public class AddPostActivity extends AppCompatActivity {
             }
         }
     });
-
     Uri imgUri = null;
     FirebaseAuth mAuth;
     String name;
@@ -68,17 +66,17 @@ public class AddPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
         ActionBar supportActionBar = getSupportActionBar();
-        this.actionBar = supportActionBar;
+        actionBar = supportActionBar;
         supportActionBar.setTitle("Dodaj novi oglas");
-        this.mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         checkUser();
-        this.postET = (EditText) findViewById(R.id.postET);
-        this.postIV = (ImageView) findViewById(R.id.postIV);
-        this.postBtn = (Button) findViewById(R.id.postBtn);
-        this.addImgBtn = (ImageButton) findViewById(R.id.addImgBtn);
+        postET = findViewById(R.id.postET);
+        postIV = findViewById(R.id.postIV);
+        postBtn = findViewById(R.id.postBtn);
+        addImgBtn = findViewById(R.id.addImgBtn);
         checkImg();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-        this.databaseReference = reference;
+        databaseReference = reference;
         reference.orderByChild("email").equalTo(this.email).addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -89,7 +87,7 @@ public class AddPostActivity extends AppCompatActivity {
                 }
             }
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onCancelled(DatabaseError error) {
             }
         });
@@ -121,14 +119,13 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void checkImg() {
-        if (this.imgUri != null) {
-            this.addImgBtn.setVisibility(View.GONE);
-            this.postIV.setVisibility(View.VISIBLE);
-            return;
+        if (imgUri != null) {
+            addImgBtn.setVisibility(View.GONE);
+            postIV.setVisibility(View.VISIBLE);
+        } else {
+            postIV.setVisibility(View.GONE);
         }
-        this.postIV.setVisibility(View.GONE);
     }
-
 
     private void uploadPost(final String postText, String uri) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -156,7 +153,6 @@ public class AddPostActivity extends AppCompatActivity {
                         hashMap.put("postImage", downloadUri);
                         hashMap.put("postTime", timeStamp);
                         FirebaseDatabase.getInstance().getReference().child("Posts").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass5.AnonymousClass2 */
 
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(AddPostActivity.this, "Oglas je dodat!", Toast.LENGTH_SHORT).show();
@@ -177,8 +173,9 @@ public class AddPostActivity extends AppCompatActivity {
                     }
                 }
             }).addOnFailureListener((OnFailureListener) new OnFailureListener() {
+                /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass4 */
 
-                @Override
+                @Override // com.google.android.gms.tasks.OnFailureListener
                 public void onFailure(Exception e) {
                     dialog.dismiss();
                     Toast.makeText(AddPostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -195,6 +192,7 @@ public class AddPostActivity extends AppCompatActivity {
         hashMap.put("postImage", "noImage");
         hashMap.put("postTime", timeStamp);
         FirebaseDatabase.getInstance().getReference().child("Posts").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass7 */
 
             public void onSuccess(Void aVoid) {
                 Toast.makeText(AddPostActivity.this, "Oglas je dodat!", Toast.LENGTH_SHORT).show();
@@ -204,8 +202,9 @@ public class AddPostActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
+            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass6 */
 
-            @Override
+            @Override // com.google.android.gms.tasks.OnFailureListener
             public void onFailure(Exception e) {
                 dialog.dismiss();
                 Toast.makeText(AddPostActivity.this, "Dogodila se greska. Pokusajte ponovo.", Toast.LENGTH_SHORT).show();
@@ -213,36 +212,40 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-
+    /* access modifiers changed from: private */
+    /* access modifiers changed from: public */
     private void pickPhoto() {
         new Intent("android.intent.action.PICK").setType("image/*");
         this.getContent.launch("image/*");
     }
 
-
+    /* access modifiers changed from: private */
+    /* access modifiers changed from: public */
     private boolean checkPermission() {
         return ContextCompat.checkSelfPermission(this, "android.permission.READ_EXTERNAL_STORAGE") == 0;
     }
 
-
+    /* access modifiers changed from: private */
+    /* access modifiers changed from: public */
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, this.storagePermissions, ItemTouchHelper.Callback.DEFAULT_DRAG_ANIMATION_DURATION);
     }
 
-
-    @Override
+    /* access modifiers changed from: protected */
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity
     public void onStart() {
         super.onStart();
         checkUser();
     }
 
-    @Override
+    /* access modifiers changed from: protected */
+    @Override // androidx.fragment.app.FragmentActivity
     public void onResume() {
         super.onResume();
         checkUser();
     }
 
-    @Override
+    @Override // androidx.appcompat.app.AppCompatActivity
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
@@ -256,10 +259,10 @@ public class AddPostActivity extends AppCompatActivity {
             return;
         }
         startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        //finish();
     }
 
-    @Override
+    @Override // androidx.activity.ComponentActivity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback, androidx.fragment.app.FragmentActivity
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         boolean storageAccepted = false;
