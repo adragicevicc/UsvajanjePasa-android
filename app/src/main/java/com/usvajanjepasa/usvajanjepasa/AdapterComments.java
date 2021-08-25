@@ -17,7 +17,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         this.commentList = commentList2;
     }
 
-    @Override // androidx.recyclerview.widget.RecyclerView.Adapter
+    @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MyHolder(LayoutInflater.from(this.context).inflate(R.layout.comments, parent, false));
     }

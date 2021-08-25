@@ -54,8 +54,7 @@ public class OpenPostActivity extends AppCompatActivity {
     TextView postTextTV;
     RecyclerView recyclerView;
 
-    /* access modifiers changed from: protected */
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, androidx.fragment.app.FragmentActivity
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_post);
@@ -85,7 +84,7 @@ public class OpenPostActivity extends AppCompatActivity {
     private void loadUsersInfo() {
         FirebaseDatabase.getInstance().getReference("Users").orderByChild("uid").equalTo(this.currUid).addListenerForSingleValueEvent(new ValueEventListener() {
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Iterator<DataSnapshot> it = snapshot.getChildren().iterator();
                 while (it.hasNext()) {
@@ -104,7 +103,7 @@ public class OpenPostActivity extends AppCompatActivity {
         this.commentList = new ArrayList();
         FirebaseDatabase.getInstance().getReference("Posts").child(this.postID).child("comments").addValueEventListener(new ValueEventListener() {
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onDataChange(DataSnapshot snapshot) {
                 OpenPostActivity.this.commentList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -144,7 +143,7 @@ public class OpenPostActivity extends AppCompatActivity {
             }
         }).addOnFailureListener(new OnFailureListener() {
 
-            @Override // com.google.android.gms.tasks.OnFailureListener
+            @Override
             public void onFailure(Exception e) {
                 Toast.makeText(OpenPostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -157,7 +156,6 @@ public class OpenPostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    //String str = "" + dataSnapshot.child("postText").getValue();
                     String str2 = "" + dataSnapshot.child("postTime").getValue();
                     postImage = "" + dataSnapshot.child("postImage").getValue();
                     pText = "" + dataSnapshot.child("postText").getValue();

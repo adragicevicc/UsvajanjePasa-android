@@ -173,9 +173,8 @@ public class AddPostActivity extends AppCompatActivity {
                     }
                 }
             }).addOnFailureListener((OnFailureListener) new OnFailureListener() {
-                /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass4 */
 
-                @Override // com.google.android.gms.tasks.OnFailureListener
+                @Override
                 public void onFailure(Exception e) {
                     dialog.dismiss();
                     Toast.makeText(AddPostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -192,7 +191,6 @@ public class AddPostActivity extends AppCompatActivity {
         hashMap.put("postImage", "noImage");
         hashMap.put("postTime", timeStamp);
         FirebaseDatabase.getInstance().getReference().child("Posts").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass7 */
 
             public void onSuccess(Void aVoid) {
                 Toast.makeText(AddPostActivity.this, "Oglas je dodat!", Toast.LENGTH_SHORT).show();
@@ -202,9 +200,8 @@ public class AddPostActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.AddPostActivity.AnonymousClass6 */
 
-            @Override // com.google.android.gms.tasks.OnFailureListener
+            @Override
             public void onFailure(Exception e) {
                 dialog.dismiss();
                 Toast.makeText(AddPostActivity.this, "Dogodila se greska. Pokusajte ponovo.", Toast.LENGTH_SHORT).show();
@@ -212,40 +209,32 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void pickPhoto() {
         new Intent("android.intent.action.PICK").setType("image/*");
         this.getContent.launch("image/*");
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private boolean checkPermission() {
         return ContextCompat.checkSelfPermission(this, "android.permission.READ_EXTERNAL_STORAGE") == 0;
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, this.storagePermissions, ItemTouchHelper.Callback.DEFAULT_DRAG_ANIMATION_DURATION);
     }
 
-    /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity
+    @Override
     public void onStart() {
         super.onStart();
         checkUser();
     }
 
-    /* access modifiers changed from: protected */
-    @Override // androidx.fragment.app.FragmentActivity
+    @Override
     public void onResume() {
         super.onResume();
         checkUser();
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
@@ -256,13 +245,12 @@ public class AddPostActivity extends AppCompatActivity {
         if (user != null) {
             this.email = user.getEmail();
             this.uid = user.getUid();
-            return;
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
         }
-        startActivity(new Intent(this, LoginActivity.class));
-        //finish();
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback, androidx.fragment.app.FragmentActivity
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         boolean storageAccepted = false;

@@ -85,7 +85,6 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         } else {
             holder.postImage.setVisibility(View.VISIBLE);
             try {
-                Toast.makeText(AdapterPost.this.context, "UCITAVA SLIKU", Toast.LENGTH_SHORT).show();
                 Picasso.get().load(pImage).into(holder.postImage);
             } catch (Exception e) {
             }

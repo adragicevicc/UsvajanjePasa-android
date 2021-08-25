@@ -61,9 +61,8 @@ public class ProfileFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         this.postList = new ArrayList();
         this.databaseReference.orderByChild("email").equalTo(this.user.getEmail()).addValueEventListener(new ValueEventListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass1 */
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     ProfileFragment.this.nameTV.setText("" + ds.child("name").getValue());
@@ -72,17 +71,15 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onCancelled(DatabaseError error) {
             }
         });
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass2 */
 
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
                 builder.setItems(new String[]{"Izmeni ime", "Izmeni telefon", "Odjavi se"}, new DialogInterface.OnClickListener() {
-                    /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass2.AnonymousClass1 */
 
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
@@ -107,9 +104,8 @@ public class ProfileFragment extends Fragment {
         layoutManager.setReverseLayout(true);
         this.profilePostsRV.setLayoutManager(layoutManager);
         FirebaseDatabase.getInstance().getReference("Posts").orderByChild("uid").equalTo(this.uid).addValueEventListener(new ValueEventListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass3 */
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ProfileFragment.this.postList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -119,27 +115,24 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
-            @Override // com.google.firebase.database.ValueEventListener
+            @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(ProfileFragment.this.getActivity(), "" + error.getMessage(), 0).show();
+                Toast.makeText(ProfileFragment.this.getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void editProfile(final String forEdit, final String key) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Izmeni " + forEdit);
         LinearLayout linearLayout = new LinearLayout(getActivity());
-        linearLayout.setOrientation(1);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setPadding(10, 10, 10, 10);
         final EditText editText = new EditText(getActivity());
         editText.setHint("Unesi " + forEdit);
         linearLayout.addView(editText);
         builder.setView(linearLayout);
         builder.setPositiveButton("Izmeni", new DialogInterface.OnClickListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass4 */
 
             public void onClick(DialogInterface dialog, int which) {
                 final String val = editText.getText().toString().trim();
@@ -147,31 +140,28 @@ public class ProfileFragment extends Fragment {
                     HashMap<String, Object> res = new HashMap<>();
                     res.put(key, val);
                     ProfileFragment.this.databaseReference.child(ProfileFragment.this.user.getUid()).updateChildren(res).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass4.AnonymousClass2 */
 
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "Uspešno ste izmenili " + forEdit, 0).show();
+                            Toast.makeText(ProfileFragment.this.getActivity(), "Uspešno ste izmenili " + forEdit, Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
-                        /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass4.AnonymousClass1 */
 
-                        @Override // com.google.android.gms.tasks.OnFailureListener
+                        @Override
                         public void onFailure(Exception e) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "" + e.getMessage(), 0).show();
+                            Toast.makeText(ProfileFragment.this.getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                     if (key.equals("name")) {
                         FirebaseDatabase.getInstance().getReference("Posts").orderByChild("uid").equalTo(ProfileFragment.this.uid).addValueEventListener(new ValueEventListener() {
-                            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass4.AnonymousClass3 */
 
-                            @Override // com.google.firebase.database.ValueEventListener
+                            @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dataSnapshot.getRef().child(dataSnapshot.getKey()).child("usersName").setValue(val);
                                 }
                             }
 
-                            @Override // com.google.firebase.database.ValueEventListener
+                            @Override
                             public void onCancelled(DatabaseError error) {
                             }
                         });
@@ -179,11 +169,10 @@ public class ProfileFragment extends Fragment {
                     }
                     return;
                 }
-                Toast.makeText(ProfileFragment.this.getActivity(), "Unesite " + forEdit, 0).show();
+                Toast.makeText(ProfileFragment.this.getActivity(), "Unesite " + forEdit, Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Otkaži", new DialogInterface.OnClickListener() {
-            /* class com.usvajanjepasaandroid.usvajanjepasaandroid.ProfileFragment.AnonymousClass5 */
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
