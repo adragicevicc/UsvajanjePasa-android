@@ -8,43 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:166265582931:android:5a5922ae9e34bbdc6ddda6",
-        "android_client_info": {
-          "package_name": "com.adoptionapp.adoptinapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "166265582931-lnt4vv23l8esopdj9eqrla15glnqr5pq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.adoptionapp.adoptinapp",
-            "certificate_hash": "65d66417faa48fdf16849cb555d63057c012d99c"
-          }
-        },
-        {
-          "client_id": "166265582931-932sgjtc53v2oaupkl1gbhh85pu5c09v.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDS1tDSWyWnllKIYgv-u3qJxOuqEreKI_8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "166265582931-932sgjtc53v2oaupkl1gbhh85pu5c09v.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:166265582931:android:e8fd9eb698343cbe6ddda6",
         "android_client_info": {
           "package_name": "com.usvajanjepasa.usvajanjepasa"
