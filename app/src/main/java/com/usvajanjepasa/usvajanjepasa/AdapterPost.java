@@ -168,7 +168,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
     @Override
     public int getItemCount() {
-        return this.postList.size();
+        return postList.size();
     }
 
 

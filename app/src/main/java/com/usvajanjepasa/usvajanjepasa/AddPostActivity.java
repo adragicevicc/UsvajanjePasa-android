@@ -1,6 +1,7 @@
 package com.usvajanjepasa.usvajanjepasa;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -95,10 +96,10 @@ public class AddPostActivity extends AppCompatActivity {
         this.addImgBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (!AddPostActivity.this.checkPermission()) {
-                    AddPostActivity.this.requestPermission();
+                if (!checkPermission()) {
+                    requestPermission();
                 } else {
-                    AddPostActivity.this.pickPhoto();
+                    pickPhoto();
                 }
             }
         });
@@ -136,7 +137,7 @@ public class AddPostActivity extends AppCompatActivity {
         final String timeStamp = String.valueOf(System.currentTimeMillis());
         String filePathAndName = "Posts/post_" + timeStamp;
         if (!uri.equals("noImage")) {
-            FirebaseStorage.getInstance().getReference().child(filePathAndName).putFile(Uri.parse(uri)).addOnSuccessListener((OnSuccessListener) new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            FirebaseStorage.getInstance().getReference().child(filePathAndName).putFile(Uri.parse(uri)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
@@ -220,6 +221,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, this.storagePermissions, ItemTouchHelper.Callback.DEFAULT_DRAG_ANIMATION_DURATION);
+
     }
 
     @Override
@@ -253,17 +255,11 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        boolean storageAccepted = false;
-        if (grantResults.length > 0) {
-            if (grantResults[0] == 0) {
-                storageAccepted = true;
-            }
-            if (storageAccepted) {
-                pickPhoto();
-                return;
-            }
-            return;
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            pickPhoto();
+        } else {
+            Toast.makeText(this, "Neophodne su dozvole za pristup", Toast.LENGTH_SHORT).show();
+
         }
-        Toast.makeText(this, "Neophodne su dozvole za pristup", Toast.LENGTH_SHORT).show();
     }
 }
